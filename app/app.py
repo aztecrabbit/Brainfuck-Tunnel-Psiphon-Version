@@ -1,4 +1,5 @@
 import os
+import sys
 import colorama
 import datetime
 from threading import RLock
@@ -28,8 +29,19 @@ def colors(value):
 
 def log(value, color='[G1]'):
     with lock:
-        print(colors('{color}[{time}] {value}'.format(
+        print(colors('{color}[{time}] {value}{endline}'.format(
             time=datetime.datetime.now().strftime('%H:%M:%S'),
             value=value,
-            color=color
+            color=color,
+            endline='            '
         )))
+
+def log_replace(value, color='[G1]'):
+    with lock:
+        sys.stdout.write(colors('{color}[{time}] {value}{endline}'.format(
+            time=datetime.datetime.now().strftime('%H:%M:%S'),
+            value=value,
+            color=color,
+            endline='            \r'
+        )))
+        sys.stdout.flush()
