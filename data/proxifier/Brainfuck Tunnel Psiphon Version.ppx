@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxifierProfile version="101" platform="Windows" product_id="0" product_minver="310">
+  <Options>
+    <Resolve>
+      <AutoModeDetection enabled="false" />
+      <ViaProxy enabled="true">
+        <TryLocalDnsFirst enabled="false" />
+      </ViaProxy>
+      <ExclusionList>%ComputerName%; localhost; *.local</ExclusionList>
+      <DnsUdpMode>1</DnsUdpMode>
+    </Resolve>
+    <Encryption mode="basic" />
+    <HttpProxiesSupport enabled="false" />
+    <HandleDirectConnections enabled="false" />
+    <ConnectionLoopDetection enabled="false" />
+    <ProcessServices enabled="false" />
+    <ProcessOtherUsers enabled="false" />
+  </Options>
+  <ProxyList>
+    <Proxy id="100" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3080</Port>
+      <Options>48</Options>
+    </Proxy>
+    <Proxy id="101" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3081</Port>
+      <Options>48</Options>
+    </Proxy>
+    <Proxy id="102" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3082</Port>
+      <Options>48</Options>
+    </Proxy>
+    <Proxy id="103" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3083</Port>
+      <Options>48</Options>
+    </Proxy>
+    <Proxy id="104" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3084</Port>
+      <Options>48</Options>
+    </Proxy>
+    <Proxy id="105" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3085</Port>
+      <Options>48</Options>
+    </Proxy>
+  </ProxyList>
+  <ChainList>
+    <Chain id="106" type="redundancy">
+      <Name>Default</Name>
+      <Proxy enabled="true">100</Proxy>
+      <Proxy enabled="true">101</Proxy>
+      <Proxy enabled="true">102</Proxy>
+      <Proxy enabled="true">103</Proxy>
+      <Proxy enabled="true">104</Proxy>
+      <Proxy enabled="true">105</Proxy>
+      <RedundancyTimeout>1</RedundancyTimeout>
+      <RedundancyTryDirect>false</RedundancyTryDirect>
+      <RedundancyRecheck>true</RedundancyRecheck>
+      <RedundancyRecheckTime>3600</RedundancyRecheckTime>
+    </Chain>
+    <Chain id="107" type="load_balancing">
+      <Name>Download</Name>
+      <Proxy enabled="true">100</Proxy>
+      <Proxy enabled="true">101</Proxy>
+      <Proxy enabled="true">102</Proxy>
+      <Proxy enabled="true">103</Proxy>
+      <Proxy enabled="true">104</Proxy>
+      <Proxy enabled="true">105</Proxy>
+    </Chain>
+  </ChainList>
+  <RuleList>
+    <Rule enabled="true">
+      <Name>Localhost</Name>
+      <Targets>localhost; 127.0.0.1; %ComputerName%; ::1; wpad; </Targets>
+      <Action type="Direct" />
+    </Rule>
+    <Rule enabled="true">
+      <Name>Psiphon</Name>
+      <Applications>psiphon-tunnel-core.exe; </Applications>
+      <Targets>*.akamai.net; </Targets>
+      <Action type="Direct" />
+    </Rule>
+    <Rule enabled="true">
+      <Name>Direct</Name>
+      <Targets>*.xl.co.id; </Targets>
+      <Action type="Direct" />
+    </Rule>
+    <Rule enabled="true">
+      <Name>Block</Name>
+      <Applications>psiphon-tunnel-core.exe; </Applications>
+      <Action type="Block" />
+    </Rule>
+    <Rule enabled="true">
+      <Name>Download</Name>
+      <Applications>IDMan.exe; </Applications>
+      <Action type="Chain">107</Action>
+    </Rule>
+    <Rule enabled="true">
+      <Name>Default</Name>
+      <Action type="Chain">106</Action>
+    </Rule>
+  </RuleList>
+</ProxifierProfile>

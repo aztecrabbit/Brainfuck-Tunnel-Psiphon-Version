@@ -79,13 +79,14 @@ class client(threading.Thread):
                             self.log(line, color='[CC]')
                             continue
 
-                        elif 'psiphon.(*Tunnel).SendAPIRequest#342: EOF' in message or \
+                        elif 'meek round trip failed: context deadline exceeded' in message or \
+                         'psiphon.(*Tunnel).SendAPIRequest#342: EOF' in message or \
                          'meek read payload failed' in message:
                             self.log(line, color='[R2]')
                             break
 
                         else:
-                            self.log(line, color='[R2]')
+                            self.log(line, color='[R1]')
                             break
 
             except KeyboardInterrupt:
