@@ -74,15 +74,12 @@ class client(threading.Thread):
                          'no such host' in message:
                             continue
 
-                        elif 'underlying conn is closed' in message or \
-                         'meek round trip failed: EOF' in message:
-                            self.log(line, color='[CC]')
-                            continue
-
-                        elif 'meek round trip failed: context deadline exceeded' in message or \
+                        elif 'psiphon.(*Tunnel).sendSshKeepAlive#1295: timed out' in message or \
                          'psiphon.(*Tunnel).SendAPIRequest#342: EOF' in message or \
-                         'meek read payload failed' in message:
-                            self.log(line, color='[R2]')
+                         'meek read payload failed' in message or \
+                         'underlying conn is closed' in message or \
+                         'meek round trip failed' in message:
+                            self.log(message, color='[R1]')
                             break
 
                         else:

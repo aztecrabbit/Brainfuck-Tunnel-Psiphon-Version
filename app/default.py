@@ -8,23 +8,22 @@ def get_file_names():
         'psiphon-tunnel-core.exe'
     ]
 
-def reset_to_default_settings():
-    for core in range(6):
-        for file_name in get_file_names():
-            try:
-                path = '/../data/psiphon/tunnel-core-{}/'.format(core)
-                os.remove(real_path('/../' + file_name))
-            except: pass
+def get_path():
+    return '/../data/psiphon/tunnel-core-{}/'
 
-    default_settings()
+def reset_default_settings():
+    for core in range(6):
+        file_names = get_file_names()
+        file_names.append('database/psiphon.boltdb.lock')
+        for file_name in file_names:
+            try:
+                os.remove(real_path(get_path().format(core) + file_name))
+            except: pass
 
 def default_settings():
     for core in range(6):
         for file_name in get_file_names():
             try:
-                path = '/../data/psiphon/tunnel-core-{}/'.format(core)
-                open(real_path(path + file_name))
+                open(real_path(get_path().format(core) + file_name))
             except:
-                shutil.copyfile(real_path('/default/' + file_name), real_path(path + file_name))
-
-default_settings()
+                shutil.copyfile(real_path('/default/' + file_name), real_path(get_path().format(core) + file_name))

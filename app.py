@@ -4,6 +4,7 @@ from subprocess import Popen
 
 def main():
     try:
+        app.default_settings()
         for core in range(6):
             app.client('data\\psiphon\\tunnel-core-{core}\\psiphon-tunnel-core.exe -config data/psiphon/tunnel-core-{core}/config/psiphon-tunnel-core.json', core).start()
         with open(os.devnull, 'w') as devnull:
