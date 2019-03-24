@@ -34,8 +34,8 @@ Updating
     $ git pull
 
 
-Notes
------
+Note
+----
 
     Use proxifier profile on .brainfuck-tunnel-psiphon-version/data/proxifier/*.ppx
 
