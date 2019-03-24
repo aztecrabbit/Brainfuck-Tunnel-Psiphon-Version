@@ -36,58 +36,49 @@ class client(threading.Thread):
                 for line in process.stdout:
                     line = json.loads(line.decode().strip() + '\r')
                     info = line['noticeType']
+                    if info in ['Info', 'Alert']: message = line.get('data').get('message')
 
                     if info == 'BytesTransferred':
                         if self.check_kuota_data(line['data']['received'], line['data']['sent']) <= 0: break
-
-                    elif info == 'ConnectingServer':
-                        # self.log('Connecting to {} port {}'.format(line['data']['ipAddress'], line['data']['dialPortNumber']))
-                        continue
 
                     elif info == 'ActiveTunnel':
                         self.log('Connected', color='[Y1]')
 
                     elif info == 'Info':
-                        if 'No connection could be made because the target machine actively refused it.' in line['data']['message'] or \
-                         'Memory metrics at psiphon' in line['data']['message'] or \
-                         'meek connection is closed' in line['data']['message'] or \
-                         'meek connection has closed' in line['data']['message'] or \
-                         'no such host' in line['data']['message']:
+                        if 'No connection could be made because the target machine actively refused it.' in message or \
+                         'Memory metrics at psiphon' in message or \
+                         'meek connection is closed' in message or \
+                         'meek connection has closed' in message or \
+                         'no such host' in message:
                             continue
 
-                        # self.log(line['data']['message'], color='[Y2]')
+                        # self.log(message, color='[Y2]')
 
                     elif info == 'Alert':
-                        if 'A connection attempt failed because the connected party did not properly respond after a period of time' in line['data']['message'] or \
-                         'No connection could be made because the target machine actively refused it.' in line['data']['message'] or \
-                         'context canceled' in line['data']['message'] or \
-                         'API request rejected' in line['data']['message'] or \
-                         'unexpected status code:' in line['data']['message'] or \
-                         'SOCKS proxy accept error' in line['data']['message'] or \
-                         'meek connection is closed' in line['data']['message'] or \
-                         'meek connection has closed' in line['data']['message'] or \
-                         'no such host' in line['data']['message']:
+                        if 'A connection attempt failed because the connected party did not properly respond after a period of time' in message or \
+                         'No connection could be made because the target machine actively refused it.' in message or \
+                         'context canceled' in message or \
+                         'API request rejected' in message or \
+                         'unexpected status code:' in message or \
+                         'meek connection is closed' in message or \
+                         'meek connection has closed' in message or \
+                         'no such host' in message:
                             continue
 
-                        self.log(line['data']['message'], color='[R2]')
+                        elif 'meek read payload failed' in message or \
+                         'underlying conn is closed' in message:
+                            self.log(line, color='[R1]')
+                            continue
 
-                    elif info == 'BuildInfo' or \
-                     info == 'ListeningSocksProxyPort' or \
-                     info == 'ListeningHttpProxyPort' or \
-                     info == 'NetworkID' or \
-                     info == 'CandidateServers' or \
-                     info == 'SessionId' or \
-                     info == 'AvailableEgressRegions' or \
-                     info == 'ConnectedServer' or \
-                     info == 'ClientRegion' or \
-                     info == 'Homepage' or \
-                     info == 'ServerTimestamp' or \
-                     info == 'ActiveAuthorizationIDs' or \
-                     info == 'Tunnels' or \
-                     info == 'ClientUpgradeAvailable' or \
-                     info == 'LocalProxyError' or \
-                     info == 'TotalBytesTransferred':
-                        continue
+                        elif 'SOCKS proxy accept error' in message or \
+                         'psiphon.(*Tunnel).SendAPIRequest#342: EOF' in message:
+                            # 'meek round trip failed: EOF' in message:
+                            break
+
+                        else:
+                            self.log(line, color='[R2]')
+                            break
+
             except KeyboardInterrupt:
                 pass
             finally:
