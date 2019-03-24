@@ -8,8 +8,8 @@
   "EmitDiagnosticNotices": true,
   "EmitBytesTransferred": true,
 
-  "LocalHttpProxyPort": 3073,
-  "LocalSocksProxyPort": 3083,
+  "LocalHttpProxyPort": 3074,
+  "LocalSocksProxyPort": 3084,
   
   "EgressRegion": ""
 }

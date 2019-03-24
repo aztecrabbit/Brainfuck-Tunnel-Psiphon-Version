@@ -1,5 +1,4 @@
 import os
-import shutil
 import colorama
 import datetime
 from threading import RLock

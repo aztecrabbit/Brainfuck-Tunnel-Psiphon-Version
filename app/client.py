@@ -60,6 +60,7 @@ class client(threading.Thread):
                     elif info == 'Alert':
                         if 'A connection attempt failed because the connected party did not properly respond after a period of time' in line['data']['message'] or \
                          'No connection could be made because the target machine actively refused it.' in line['data']['message'] or \
+                         'context canceled' in line['data']['message'] or \
                          'API request rejected' in line['data']['message'] or \
                          'unexpected status code:' in line['data']['message'] or \
                          'SOCKS proxy accept error' in line['data']['message'] or \
@@ -92,3 +93,4 @@ class client(threading.Thread):
             finally:
                 process.kill()
                 self.log('Disconnected', color='[R1]')
+                time.sleep(2.500)

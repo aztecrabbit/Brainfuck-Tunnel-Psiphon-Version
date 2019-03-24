@@ -1,7 +1,8 @@
 # User
 *.stackdump
 
-
+data/psiphon/tunnel-core-*/database/*
+data/psiphon/tunnel-core-*/psiphon-tunnel-core.exe
 
 !.gitkeep 
 
