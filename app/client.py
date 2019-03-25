@@ -84,7 +84,7 @@ class client(threading.Thread):
 
                         else:
                             self.log(line, color='[R1]')
-                            break
+                            continue
 
             except KeyboardInterrupt:
                 pass
