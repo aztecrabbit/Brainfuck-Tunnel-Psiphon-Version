@@ -60,7 +60,7 @@
       <RedundancyTimeout>1</RedundancyTimeout>
       <RedundancyTryDirect>false</RedundancyTryDirect>
       <RedundancyRecheck>true</RedundancyRecheck>
-      <RedundancyRecheckTime>720</RedundancyRecheckTime>
+      <RedundancyRecheckTime>360</RedundancyRecheckTime>
     </Chain>
     <Chain id="107" type="load_balancing">
       <Name>Download</Name>
