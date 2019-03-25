@@ -74,12 +74,13 @@ class client(threading.Thread):
                          'no such host' in message:
                             continue
 
-                        elif 'psiphon.(*Tunnel).sendSshKeepAlive#1295: timed out' in message or \
-                         'psiphon.(*Tunnel).SendAPIRequest#342: EOF' in message or \
+                        elif 'psiphon.(*Tunnel).sendSshKeepAlive#1295:' in message or \
+                         'psiphon.(*Tunnel).SendAPIRequest#342:' in message or \
+                         'meek round trip failed' in message or \
                          'meek read payload failed' in message or \
                          'underlying conn is closed' in message or \
-                         'meek round trip failed' in message:
-                            self.log(message, color='[R1]')
+                         'tunnel failed:' in message:
+                            self.log('Connection closed', color='[R1]')
                             break
 
                         else:
