@@ -13,7 +13,7 @@
     <HttpProxiesSupport enabled="false" />
     <HandleDirectConnections enabled="false" />
     <ConnectionLoopDetection enabled="false" />
-    <ProcessServices enabled="false" />
+    <ProcessServices enabled="true" />
     <ProcessOtherUsers enabled="false" />
   </Options>
   <ProxyList>
@@ -47,6 +47,26 @@
       <Port>3085</Port>
       <Options>48</Options>
     </Proxy>
+    <Proxy id="108" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3086</Port>
+      <Options>48</Options>
+    </Proxy>
+    <Proxy id="109" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3087</Port>
+      <Options>48</Options>
+    </Proxy>
+    <Proxy id="110" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3088</Port>
+      <Options>48</Options>
+    </Proxy>
+    <Proxy id="111" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3089</Port>
+      <Options>48</Options>
+    </Proxy>
   </ProxyList>
   <ChainList>
     <Chain id="106" type="redundancy">
@@ -57,6 +77,10 @@
       <Proxy enabled="true">103</Proxy>
       <Proxy enabled="true">104</Proxy>
       <Proxy enabled="true">105</Proxy>
+      <Proxy enabled="true">108</Proxy>
+      <Proxy enabled="true">109</Proxy>
+      <Proxy enabled="true">110</Proxy>
+      <Proxy enabled="true">111</Proxy>
       <RedundancyTimeout>1</RedundancyTimeout>
       <RedundancyTryDirect>false</RedundancyTryDirect>
       <RedundancyRecheck>true</RedundancyRecheck>
@@ -70,6 +94,10 @@
       <Proxy enabled="true">103</Proxy>
       <Proxy enabled="true">104</Proxy>
       <Proxy enabled="true">105</Proxy>
+      <Proxy enabled="true">108</Proxy>
+      <Proxy enabled="true">109</Proxy>
+      <Proxy enabled="true">110</Proxy>
+      <Proxy enabled="true">111</Proxy>
     </Chain>
   </ChainList>
   <RuleList>
@@ -97,6 +125,11 @@
     <Rule enabled="true">
       <Name>Download</Name>
       <Applications>IDMan.exe; </Applications>
+      <Action type="Chain">107</Action>
+    </Rule>
+    <Rule enabled="true">
+      <Name>Download</Name>
+      <Targets>*.userstorage.mega.co.nz; </Targets>
       <Action type="Chain">107</Action>
     </Rule>
     <Rule enabled="true">

@@ -79,7 +79,6 @@ class client(threading.Thread):
                          'meek read payload failed' in message or \
                          'underlying conn is closed' in message or \
                          'tunnel failed:' in message:
-                            self.log(message, color='[R1]')
                             self.log('Connection closed', color='[R1]')
                             self.log('{} KB'.format(self.kuota_data / 1000), color='[R1]')
                             break
