@@ -13,17 +13,12 @@ Requirements
     Python 3 pip
 
 
-Python 3 Modules
-----------------
-
-    python -m pip install colorama
-
-
 Usage
 -----
 
-    $ git clone https://github.com/AztecRabbit/Brainfuck-Tunnel-Psiphon-Version.git .brainfuck-tunnel-psiphon-version
+    $ git clone https://github.com/AztecRabbit/Brainfuck-Tunnel-Psiphon-Version .brainfuck-tunnel-psiphon-version
     $ cd .brainfuck-tunnel-psiphon-version
+    $ python -m pip install colorama
     $ python app.py
 
 
@@ -32,6 +27,8 @@ Updating
 
     $ cd .brainfuck-tunnel-psiphon-version
     $ git pull
+    $ python reset.py
+    $ python app.py
 
 
 Note

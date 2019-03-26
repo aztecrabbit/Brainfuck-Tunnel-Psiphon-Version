@@ -5,10 +5,10 @@ import subprocess
 from .app import *
 
 class client(threading.Thread):
-    def __init__(self, command_line, core):
+    def __init__(self, command, core):
         super(client, self).__init__()
 
-        self.command_line = command_line.format(core=core)
+        self.command = command.format(core=core)
         self.core = core
 
         self.kuota_data_origin = 4000000
@@ -28,21 +28,23 @@ class client(threading.Thread):
     def check_kuota_data(self, received, sent):
         self.kuota_data = self.kuota_data - (int(received) + int(sent))
 
+        return True if self.kuota_data > 0 else False
+
     def run(self):
         while True:
             try:
-                process = subprocess.Popen(self.command_line, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                process = subprocess.Popen(self.command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 self.reset_kuota_data()
                 self.log('Connecting')
-    
                 for line in process.stdout:
                     line = json.loads(line.decode().strip() + '\r')
                     info = line['noticeType']
-                    if info in ['Info', 'Alert']: message = line.get('data').get('message')
+                    if info in ['Info', 'Alert']: message = line['data']['message']
 
                     if info == 'BytesTransferred':
-                        self.check_kuota_data(line['data']['received'], line['data']['sent'])
-                        if self.kuota_data <= 0: break
+                        if not self.check_kuota_data(line['data']['received'], line['data']['sent']):
+                            self.log_replace('0 KB')
+                            break
                         self.log_replace('{} KB'.format(self.kuota_data / 1000))
 
                     elif info == 'ActiveTunnel':
@@ -57,12 +59,9 @@ class client(threading.Thread):
                          'no such host' in message:
                             continue
 
-                        # self.log(message, color='[Y2]')
-
                     elif info == 'Alert':
                         if 'SOCKS proxy accept error' in message:
-                            if self.connected == False:
-                                break
+                            if not self.connected: break
 
                         elif 'A connection attempt failed because the connected party did not properly respond after a period of time' in message or \
                          'No connection could be made because the target machine actively refused it.' in message or \
@@ -80,13 +79,12 @@ class client(threading.Thread):
                          'meek read payload failed' in message or \
                          'underlying conn is closed' in message or \
                          'tunnel failed:' in message:
+                            self.log(message, color='[R1]')
                             self.log('Connection closed', color='[R1]')
+                            self.log('{} KB'.format(self.kuota_data / 1000), color='[R1]')
                             break
 
-                        else:
-                            self.log(line, color='[R1]')
-                            continue
-
+                        else: self.log(line, color='[R1]')
             except KeyboardInterrupt:
                 pass
             finally:
