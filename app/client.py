@@ -11,7 +11,7 @@ class client(threading.Thread):
         self.command = command.format(core=core)
         self.core = core
 
-        self.kuota_data_origin = 4000000
+        self.kuota_data_limit = 4000000
         self.kuota_data = 0
         self.connected = False
         self.daemon = True
@@ -22,20 +22,29 @@ class client(threading.Thread):
     def log_replace(self, value, color='[G1]'):
         log_replace('[ core-{} ] {}'.format(self.core, value), color=color)
 
+    def size(self, bytes, suffixes=['B', 'KB', 'MB', 'GB', 'TB', 'PB'], i=0):
+        while bytes >= 1000 and i < len(suffixes) - 1:
+            bytes /= 1000; i += 1
+
+        return '{:.3f} {}'.format(bytes, suffixes[i])
+
     def reset_kuota_data(self):
-        self.kuota_data = self.kuota_data_origin
+        self.kuota_data = 0
 
     def check_kuota_data(self, received, sent):
-        self.kuota_data = self.kuota_data - (int(received) + int(sent))
+        self.kuota_data = self.kuota_data + (int(received) + int(sent))
 
-        return True if self.kuota_data > 0 else False
+        if self.kuota_data_limit > 0 and self.kuota_data >= self.kuota_data_limit:
+            return False
+
+        return True
 
     def run(self):
+        self.log('Connecting')
         while True:
             try:
-                process = subprocess.Popen(self.command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 self.reset_kuota_data()
-                self.log('Connecting')
+                process = subprocess.Popen(self.command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 for line in process.stdout:
                     line = json.loads(line.decode().strip() + '\r')
                     info = line['noticeType']
@@ -43,9 +52,9 @@ class client(threading.Thread):
 
                     if info == 'BytesTransferred':
                         if not self.check_kuota_data(line['data']['received'], line['data']['sent']):
-                            self.log_replace('0 KB')
+                            self.log_replace(self.size(self.kuota_data), color='[R1]')
                             break
-                        self.log_replace('{} KB'.format(self.kuota_data / 1000))
+                        self.log_replace(self.size(self.kuota_data))
 
                     elif info == 'ActiveTunnel':
                         self.connected = True
@@ -80,7 +89,6 @@ class client(threading.Thread):
                          'underlying conn is closed' in message or \
                          'tunnel failed:' in message:
                             self.log('Connection closed', color='[R1]')
-                            self.log('{} KB'.format(self.kuota_data / 1000), color='[R1]')
                             break
 
                         else: self.log(line, color='[R1]')
@@ -90,3 +98,4 @@ class client(threading.Thread):
                 process.kill()
                 self.connected = False
                 time.sleep(2.500)
+                self.log('Reconnecting ({})'.format(self.size(self.kuota_data)))
