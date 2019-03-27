@@ -70,7 +70,7 @@
   </ProxyList>
   <ChainList>
     <Chain id="106" type="redundancy">
-      <Name>Default</Name>
+      <Name>Redundancy</Name>
       <Proxy enabled="true">100</Proxy>
       <Proxy enabled="true">101</Proxy>
       <Proxy enabled="true">102</Proxy>
@@ -87,7 +87,7 @@
       <RedundancyRecheckTime>180</RedundancyRecheckTime>
     </Chain>
     <Chain id="107" type="load_balancing">
-      <Name>Download</Name>
+      <Name>Load Balancing</Name>
       <Proxy enabled="true">100</Proxy>
       <Proxy enabled="true">101</Proxy>
       <Proxy enabled="true">102</Proxy>
@@ -107,14 +107,14 @@
       <Action type="Direct" />
     </Rule>
     <Rule enabled="true">
-      <Name>Psiphon</Name>
-      <Applications>psiphon-tunnel-core.exe; </Applications>
-      <Targets>*.akamai.net; </Targets>
+      <Name>Direct</Name>
+      <Targets>*.xl.co.id; </Targets>
       <Action type="Direct" />
     </Rule>
     <Rule enabled="true">
-      <Name>Direct</Name>
-      <Targets>*.xl.co.id; </Targets>
+      <Name>Psiphon</Name>
+      <Applications>psiphon-tunnel-core.exe; </Applications>
+      <Targets>*.akamai.net; </Targets>
       <Action type="Direct" />
     </Rule>
     <Rule enabled="true">
@@ -124,12 +124,12 @@
     </Rule>
     <Rule enabled="true">
       <Name>Download</Name>
-      <Applications>IDMan.exe; </Applications>
+      <Applications>IDMan.exe; JDownloader2.exe; </Applications>
       <Action type="Chain">107</Action>
     </Rule>
     <Rule enabled="true">
       <Name>Download</Name>
-      <Targets>*.userstorage.mega.co.nz; </Targets>
+      <Targets>*.userstorage.mega.co.nz; *.googlevideo.com; </Targets>
       <Action type="Chain">107</Action>
     </Rule>
     <Rule enabled="true">
