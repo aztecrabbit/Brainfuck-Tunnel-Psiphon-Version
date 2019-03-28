@@ -76,6 +76,7 @@ class client(threading.Thread):
                          'No connection could be made because the target machine actively refused it.' in message or \
                          'context canceled' in message or \
                          'API request rejected' in message or \
+                         'close tunnel ssh error' in message or \
                          'tactics request failed' in message or \
                          'unexpected status code:' in message or \
                          'meek connection is closed' in message or \
