@@ -13,6 +13,7 @@ class client(threading.Thread):
         self.core = core
 
         self.kuota_data = 0
+        self.force_stop = False
         self.connected = False
         self.daemon = True
 
@@ -95,10 +96,12 @@ class client(threading.Thread):
 
                         else: self.log(line, color='[R1]')
             except json.decoder.JSONDecodeError:
+                self.force_stop = True
                 self.log('Another process is running!', color='[R1]')
             except KeyboardInterrupt:
                 pass
             finally:
+                if self.force_stop: break
                 try:
                     process.kill()
                     self.connected = False
@@ -107,4 +110,5 @@ class client(threading.Thread):
                 except Exception as exception:
                     self.log('Exception: {}'.format(exception), color='[R1]')
                     self.log('Stopped', color='[R1]')
-                    return
+                    break
+
