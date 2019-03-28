@@ -94,10 +94,17 @@ class client(threading.Thread):
                             break
 
                         else: self.log(line, color='[R1]')
+            except json.decoder.JSONDecodeError:
+                pass
             except KeyboardInterrupt:
                 pass
             finally:
-                process.kill()
-                self.connected = False
-                time.sleep(2.500)
-                self.log('Reconnecting ({})'.format(self.size(self.kuota_data)))
+                try:
+                    process.kill()
+                    self.connected = False
+                    time.sleep(2.500)
+                    self.log('Reconnecting ({})'.format(self.size(self.kuota_data)))
+                except:
+                    self.log('Another process is running!', color='[R1]')
+                    self.log('Stopped.', color='[R1]')
+                    break
