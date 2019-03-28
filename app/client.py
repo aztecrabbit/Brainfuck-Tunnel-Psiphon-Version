@@ -5,13 +5,13 @@ import subprocess
 from .app import *
 
 class client(threading.Thread):
-    def __init__(self, command, core):
+    def __init__(self, command, core, kuota_data_limit):
         super(client, self).__init__()
 
+        self.kuota_data_limit = kuota_data_limit
         self.command = command.format(core=core)
         self.core = core
 
-        self.kuota_data_limit = 4000000
         self.kuota_data = 0
         self.connected = False
         self.daemon = True
@@ -76,6 +76,7 @@ class client(threading.Thread):
                          'No connection could be made because the target machine actively refused it.' in message or \
                          'context canceled' in message or \
                          'API request rejected' in message or \
+                         'tactics request failed' in message or \
                          'unexpected status code:' in message or \
                          'meek connection is closed' in message or \
                          'meek connection has closed' in message or \

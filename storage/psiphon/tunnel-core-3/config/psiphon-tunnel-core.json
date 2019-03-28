@@ -1,0 +1,15 @@
+{
+  "DataStoreDirectory": "storage/psiphon/tunnel-core-3/database",
+  "DataStoreTempDirectory": "storage/psiphon/tunnel-core-3/temp",
+  "PropagationChannelId": "92AACC5BABE0944C",
+  "SponsorId": "1BC527D3D09985CF",
+
+  "UseIndistinguishableTLS": true,
+  "EmitDiagnosticNotices": true,
+  "EmitBytesTransferred": true,
+
+  "LocalHttpProxyPort": 3073,
+  "LocalSocksProxyPort": 3083,
+  
+  "EgressRegion": ""
+}

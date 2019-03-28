@@ -1,0 +1,6 @@
+{
+  "core": 10,
+  "kuota_data_limit": 4000000,
+
+  "http_ping_url": "https://global-4-lvs-curry-1.opera-mini.net"
+}
