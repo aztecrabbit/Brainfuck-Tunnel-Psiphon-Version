@@ -33,9 +33,9 @@ class client(threading.Thread):
         self.kuota_data = 0
 
     def check_kuota_data(self, received, sent):
-        self.kuota_data = self.kuota_data + (int(received) + int(sent))
+        self.kuota_data = self.kuota_data + (received + sent)
 
-        if self.kuota_data_limit > 0 and self.kuota_data >= self.kuota_data_limit:
+        if self.kuota_data_limit > 0 and self.kuota_data >= self.kuota_data_limit and (received == 0 or (sent == 0 and received <= 20000)):
             return False
 
         return True
