@@ -67,6 +67,11 @@
       <Port>3089</Port>
       <Options>48</Options>
     </Proxy>
+    <Proxy id="112" type="HTTPS">
+      <Address>127.0.0.1</Address>
+      <Port>8080</Port>
+      <Options>48</Options>
+    </Proxy>
   </ProxyList>
   <ChainList>
     <Chain id="106" type="redundancy">
@@ -108,6 +113,11 @@
     </Rule>
     <Rule enabled="true">
       <Name>Direct</Name>
+      <Applications>simpleserver.exe; </Applications>
+      <Action type="Direct" />
+    </Rule>
+    <Rule enabled="true">
+      <Name>Direct</Name>
       <Targets>*.xl.co.id; </Targets>
       <Action type="Direct" />
     </Rule>
@@ -124,7 +134,7 @@
     </Rule>
     <Rule enabled="true">
       <Name>Download</Name>
-      <Applications>IDMan.exe; JDownloader2.exe; </Applications>
+      <Applications>IDMan.exe; </Applications>
       <Action type="Chain">107</Action>
     </Rule>
     <Rule enabled="true">
