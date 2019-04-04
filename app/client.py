@@ -29,9 +29,6 @@ class client(threading.Thread):
 
         return '{:.3f} {}'.format(bytes, suffixes[i])
 
-    def reset_kuota_data(self):
-        self.kuota_data = 0
-
     def check_kuota_data(self, received, sent):
         self.kuota_data = self.kuota_data + received + sent
 
@@ -44,7 +41,7 @@ class client(threading.Thread):
         self.log('Connecting')
         while True:
             try:
-                self.reset_kuota_data()
+                self.kuota_data = 0
                 process = subprocess.Popen(self.command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 for line in process.stdout:
                     line = json.loads(line.decode().strip() + '\r')
@@ -87,6 +84,7 @@ class client(threading.Thread):
 
                         elif 'psiphon.(*Tunnel).sendSshKeepAlive#1295:' in message or \
                          'psiphon.(*Tunnel).SendAPIRequest#342:' in message or \
+                         'psiphon.(*Tunnel).Activate#225:' in message or \
                          'meek round trip failed' in message or \
                          'meek read payload failed' in message or \
                          'underlying conn is closed' in message or \
