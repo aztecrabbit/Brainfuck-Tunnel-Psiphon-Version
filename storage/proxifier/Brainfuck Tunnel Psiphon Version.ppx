@@ -107,18 +107,13 @@
   </ChainList>
   <RuleList>
     <Rule enabled="true">
-      <Name>Localhost</Name>
-      <Targets>localhost; 127.0.0.1; %ComputerName%; ::1; wpad; </Targets>
+      <Name>Direct</Name>
+      <Targets>localhost; 127.0.0.1; %ComputerName%; ::1; wpad; 192.168.*.*; *.xl.co.id; </Targets>
       <Action type="Direct" />
     </Rule>
     <Rule enabled="true">
       <Name>Direct</Name>
-      <Applications>simpleserver.exe; </Applications>
-      <Action type="Direct" />
-    </Rule>
-    <Rule enabled="true">
-      <Name>Direct</Name>
-      <Targets>*.xl.co.id; </Targets>
+      <Applications>app.exe; app2.exe; app3.exe; simpleserver.exe; </Applications>
       <Action type="Direct" />
     </Rule>
     <Rule enabled="true">
