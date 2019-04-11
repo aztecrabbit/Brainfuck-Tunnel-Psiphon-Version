@@ -7,7 +7,7 @@
         <TryLocalDnsFirst enabled="false" />
       </ViaProxy>
       <ExclusionList>%ComputerName%; localhost; *.local</ExclusionList>
-      <DnsUdpMode>1</DnsUdpMode>
+      <DnsUdpMode>0</DnsUdpMode>
     </Resolve>
     <Encryption mode="basic" />
     <HttpProxiesSupport enabled="false" />
@@ -112,15 +112,20 @@
       <Action type="Direct" />
     </Rule>
     <Rule enabled="true">
+      <Name>Default</Name>
+      <Targets>*.virustotal.com; </Targets>
+      <Action type="Chain">106</Action>
+    </Rule>
+    <Rule enabled="true">
       <Name>Direct</Name>
-      <Applications>app.exe; app2.exe; app3.exe; simpleserver.exe; </Applications>
+      <Applications>ping.exe; app.exe; app2.exe; app3.exe; python.exe; </Applications>
       <Action type="Direct" />
     </Rule>
     <Rule enabled="true">
       <Name>Psiphon</Name>
       <Applications>psiphon-tunnel-core.exe; </Applications>
       <Targets>*.akamai.net; </Targets>
-      <Action type="Direct" />
+      <Action type="Proxy">112</Action>
     </Rule>
     <Rule enabled="true">
       <Name>Block</Name>
