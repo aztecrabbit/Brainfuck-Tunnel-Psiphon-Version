@@ -1,3 +1,4 @@
+import os
 import json
 import time
 import threading
@@ -18,16 +19,21 @@ class client(threading.Thread):
         self.daemon = True
 
     def log(self, value, color='[G1]'):
-        log('[ core-{} ] {}'.format(self.core, value), color=color)
+        log(value, status='308{}'.format(self.core), color=color)
 
     def log_replace(self, value, color='[G1]'):
-        log_replace('[ core-{} ] {}'.format(self.core, value), color=color)
+        log_replace(value, status='308{}'.format(self.core), color=color)
 
     def size(self, bytes, suffixes=['B', 'KB', 'MB', 'GB'], i=0):
         while bytes >= 1000 and i < len(suffixes) - 1:
             bytes /= 1000; i += 1
 
         return '{:.3f} {}'.format(bytes, suffixes[i])
+
+    def http_ping(self):
+        with open(os.devnull, 'w') as devnull:
+            process = subprocess.Popen('storage\\http-ping\\http-ping.exe 141.0.11.241 -n 1 -w 1 -i 0', stdout=devnull, stderr=devnull)
+            process.communicate()
 
     def check_kuota_data(self, received, sent):
         self.kuota_data = self.kuota_data + received + sent
@@ -103,6 +109,9 @@ class client(threading.Thread):
                 try:
                     process.kill()
                     self.connected = False
+                    thread = threading.Thread(target=self.http_ping)
+                    thread.daemon = True
+                    thread.start()
                     time.sleep(2.500)
                     self.log('Reconnecting ({})'.format(self.size(self.kuota_data)))
                 except Exception as exception:

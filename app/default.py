@@ -4,7 +4,8 @@ from .app import *
 
 def get_file_names():
     return [
-        'config/config.json'
+        'config/config.json',
+        'config/frontend-domains.txt'
     ]
 
 def get_psiphon_file_names():
@@ -24,6 +25,7 @@ def reset_default_settings():
 
     for core in range(10):
         file_names = get_psiphon_file_names()
+        file_names.remove('database/psiphon.boltdb')
         file_names.append('database/psiphon.boltdb.lock')
         for file_name in file_names:
             try:

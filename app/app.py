@@ -9,6 +9,13 @@ lock = RLock(); colorama.init()
 def real_path(file_name):
     return os.path.dirname(os.path.abspath(__file__)) + file_name
 
+def filter_array(array):
+    for i in range(len(array)):
+        if array[i].startswith('#'):
+            array[i] = ''
+
+    return [x for x in array if x]
+
 def colors(value):
     patterns = {
         'CC' : '\033[0m',    'BB' : '\033[1m',
@@ -27,21 +34,17 @@ def colors(value):
 
     return value
 
-def log(value, color='[G1]'):
+def log(value, status='INFO', color='[G1]'):
     with lock:
-        print(colors('{color}[{time}] {value}{endline}'.format(
+        print(colors('{color}[{time}] [P1]:: {color}{status} [P1]:: {color}{value}{endline}'.format(
             time=datetime.datetime.now().strftime('%H:%M:%S'),
             value=value,
             color=color,
+            status=status,
             endline='            '
         )))
 
-def log_replace(value, color='[G1]'):
+def log_replace(value, status='INFO', color='[G1]'):
     with lock:
-        sys.stdout.write(colors('{color}[{time}] {value}{endline}'.format(
-            time=datetime.datetime.now().strftime('%H:%M:%S'),
-            value=value,
-            color=color,
-            endline='            \r'
-        )))
+        sys.stdout.write(colors('{}{} ({})        \r'.format(color, status, value)))
         sys.stdout.flush()

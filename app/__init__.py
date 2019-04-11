@@ -1,5 +1,6 @@
 from os import system
 from .app import *
+from .inject import *
 from .client import *
 from .default import *
 
