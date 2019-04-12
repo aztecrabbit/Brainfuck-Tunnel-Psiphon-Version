@@ -36,12 +36,11 @@ def colors(value):
 
 def log(value, status='INFO', color='[G1]'):
     with lock:
-        print(colors('{color}[{time}] [P1]:: {color}{status} [P1]:: {color}{value}{endline}'.format(
+        print(colors('{color}[{time}] [P1]:: {color}{status} [P1]:: {color}{value}'.format(
             time=datetime.datetime.now().strftime('%H:%M:%S'),
             value=value,
             color=color,
-            status=status,
-            endline='            '
+            status=status
         )))
 
 def log_replace(value, status='INFO', color='[G1]'):
