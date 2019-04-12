@@ -11,6 +11,7 @@ def real_path(file_name):
 
 def filter_array(array):
     for i in range(len(array)):
+        array[i] = array[i].strip()
         if array[i].startswith('#'):
             array[i] = ''
 

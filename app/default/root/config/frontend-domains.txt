@@ -1,1 +1,2 @@
 video.iflix.com
+videocdn-2.iflix.com

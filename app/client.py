@@ -108,10 +108,11 @@ class client(threading.Thread):
                 if self.force_stop: break
                 try:
                     process.kill()
-                    self.connected = False
-                    thread = threading.Thread(target=self.http_ping)
-                    thread.daemon = True
-                    thread.start()
+                    if self.connected == True:
+                        self.connected = False
+                        thread = threading.Thread(target=self.http_ping)
+                        thread.daemon = True
+                        thread.start()
                     time.sleep(2.500)
                     self.log('Reconnecting ({})'.format(self.size(self.kuota_data)))
                 except Exception as exception:

@@ -40,10 +40,10 @@ class domain_fronting(threading.Thread):
 
     def run(self):
         try:
-            proxy_host = random.choice(self.frontend_domains)
-            proxy_host = proxy_host.strip()
-
-            self.socket_tunnel.connect((proxy_host, 80))
+            self.proxy_host_port = random.choice(self.frontend_domains).split(':')
+            self.proxy_host = self.proxy_host_port[0]
+            self.proxy_port = self.proxy_host_port[1] if len(self.proxy_host_port) >= 2 and self.proxy_host_port[1] else '80'
+            self.socket_tunnel.connect((str(self.proxy_host), int(self.proxy_port)))
             self.socket_client.sendall(b'HTTP/1.1 200 OK\r\n\r\n')
             self.handler()
             self.socket_client.close()
