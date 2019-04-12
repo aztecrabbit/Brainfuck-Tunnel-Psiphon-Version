@@ -26,9 +26,9 @@ class inject(threading.Thread):
                 return
             self.log('Domain Fronting running on {} port {}'.format(self.inject_host, self.inject_port))
             while True:
-                socket_client, (_, _) = socket_server.accept()
+                socket_client, _ = socket_server.accept()
                 socket_client.recv(65535)
                 domain_fronting(socket_client, frontend_domains).start()
         except Exception as exception:
-            self.log('Domain Fronting not running on {} port {}', color='[R1]')
-            self.log('Exception: {}'.format(exception))
+            self.log('Domain Fronting not running on {} port {}'.format(self.inject_host, self.inject_port), color='[R1]')
+            self.log('Exception: {}'.format(exception), color='[R1]')
