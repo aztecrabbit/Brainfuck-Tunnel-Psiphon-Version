@@ -23,7 +23,9 @@ def main():
     try:
         command = 'storage\\psiphon\\tunnel-core-{core}\\psiphon-tunnel-core.exe -config storage/psiphon/tunnel-core-{core}/config/psiphon-tunnel-core.json'
         for core in range(config_core): app.client(command, core, config_kuota_data_limit).start()
-        time.sleep(60*60*24*30)
+        with open(os.devnull, 'w') as devnull:
+            process = Popen('ping.exe 141.0.11.241 -t', stdout=devnull, stderr=devnull)
+            process.communicate()
     except KeyboardInterrupt:
         pass
 

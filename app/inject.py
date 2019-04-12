@@ -24,7 +24,6 @@ class inject(threading.Thread):
                 self.log('Frontend Domain not found. Please check config/frontend-domains.txt', color='[R1]')
                 self.log('Proxification Rules Psiphon change to Direct', color='[R1]')
                 return
-
             self.log('Domain Fronting running on {} port {}'.format(self.inject_host, self.inject_port))
             while True:
                 socket_client, (_, _) = socket_server.accept()
