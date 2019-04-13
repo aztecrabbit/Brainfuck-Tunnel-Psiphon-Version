@@ -113,7 +113,7 @@
     </Rule>
     <Rule enabled="true">
       <Name>Default</Name>
-      <Targets>*.virustotal.com; </Targets>
+      <Targets>*.virustotal.com; *.subscene.com; </Targets>
       <Action type="Chain">106</Action>
     </Rule>
     <Rule enabled="true">
@@ -125,6 +125,7 @@
       <Name>Psiphon</Name>
       <Applications>psiphon-tunnel-core.exe; </Applications>
       <Targets>*.akamai.net; </Targets>
+      <Ports>80</Ports>
       <Action type="Proxy">112</Action>
     </Rule>
     <Rule enabled="true">
