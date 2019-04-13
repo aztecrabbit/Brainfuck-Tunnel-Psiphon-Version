@@ -17,8 +17,8 @@ class domain_fronting(threading.Thread):
     def log(self, value, status='INFO', color='[G1]'):
         log(value, status=status, color=color)
 
-    def handler(self):
-        sockets = [self.socket_tunnel, self.socket_client]
+    def handler(self, socket_tunnel, socket_client, buffer_size):
+        sockets = [socket_tunnel, socket_client]
         timeout = 0
         while True:
             timeout += 1
@@ -27,13 +27,13 @@ class domain_fronting(threading.Thread):
             if socket_io:
                 for sock in socket_io:
                     try:
-                        data = sock.recv(self.buffer_size)
+                        data = sock.recv(buffer_size)
                         if not data: break
                         # SENT -> RECEIVED
-                        elif sock is self.socket_client:
-                            self.socket_tunnel.sendall(data)
-                        elif sock is self.socket_tunnel:
-                            self.socket_client.sendall(data)
+                        elif sock is socket_client:
+                            socket_tunnel.sendall(data)
+                        elif sock is socket_tunnel:
+                            socket_client.sendall(data)
                         timeout = 0
                     except: break
             if timeout == 30: break
@@ -45,7 +45,7 @@ class domain_fronting(threading.Thread):
             self.proxy_port = self.proxy_host_port[1] if len(self.proxy_host_port) >= 2 and self.proxy_host_port[1] else '80'
             self.socket_tunnel.connect((str(self.proxy_host), int(self.proxy_port)))
             self.socket_client.sendall(b'HTTP/1.1 200 OK\r\n\r\n')
-            self.handler()
+            self.handler(self.socket_tunnel, self.socket_client, self.buffer_size)
             self.socket_client.close()
             self.socket_tunnel.close()
         except Exception as exception:

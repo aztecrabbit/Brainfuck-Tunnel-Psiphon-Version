@@ -1,2 +1,16 @@
+# Frontend Domains (Random Selection)
+#
+# hostname
+# hostname:80
+# hostname:443
+
+# iflix
+#
+
 video.iflix.com
 videocdn-2.iflix.com
+
+# 106.subnet118-98-95.astinet.telkom.net.id
+#
+
+# 118.98.95.106:443
