@@ -35,7 +35,7 @@ Note
 ----
 
     Use proxifier profile on .brainfuck-tunnel-psiphon-version/storage/proxifier/*.ppx
-    Also update your proxifier profile every updated.
+    And also update your proxifier profile every updated.
 
 
 Contact
