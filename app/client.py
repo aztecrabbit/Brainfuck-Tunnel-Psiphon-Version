@@ -113,7 +113,7 @@ class client(threading.Thread):
                         thread = threading.Thread(target=self.http_ping)
                         thread.daemon = True
                         thread.start()
-                    time.sleep(2.500)
+                    time.sleep(0.750)
                     self.log('Reconnecting ({})'.format(self.size(self.kuota_data)))
                 except Exception as exception:
                     self.log('Exception: {}'.format(exception), color='[R1]')
