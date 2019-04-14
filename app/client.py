@@ -1,6 +1,5 @@
 import os
 import json
-import time
 import threading
 import subprocess
 from .app import *
@@ -36,9 +35,9 @@ class client(threading.Thread):
             process.communicate()
 
     def check_kuota_data(self, received, sent):
-        self.kuota_data = self.kuota_data + received + sent
+        self.kuota_data += received + sent
 
-        if self.kuota_data_limit > 0 and self.kuota_data >= self.kuota_data_limit and (received == 0 or (sent == 0 and received <= 20000)):
+        if self.kuota_data_limit > 0 and self.kuota_data >= self.kuota_data_limit and sent == 0 and received <= 20000:
             return False
 
         return True
@@ -110,10 +109,7 @@ class client(threading.Thread):
                     process.kill()
                     if self.connected == True:
                         self.connected = False
-                        thread = threading.Thread(target=self.http_ping)
-                        thread.daemon = True
-                        thread.start()
-                    time.sleep(0.750)
+                        self.http_ping()
                     self.log('Reconnecting ({})'.format(self.size(self.kuota_data)))
                 except Exception as exception:
                     self.log('Exception: {}'.format(exception), color='[R1]')
