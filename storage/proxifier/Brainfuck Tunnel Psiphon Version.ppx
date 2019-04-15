@@ -107,9 +107,16 @@
   </ChainList>
   <RuleList>
     <Rule enabled="true">
-      <Name>Direct</Name>
-      <Targets>localhost; 127.0.0.1; %ComputerName%; ::1; wpad; 192.168.*.*; *.xl.co.id; </Targets>
-      <Action type="Direct" />
+      <Name>Psiphon</Name>
+      <Applications>psiphon-tunnel-core.exe; </Applications>
+      <Targets>*.akamai.net; </Targets>
+      <Ports>80</Ports>
+      <Action type="Proxy">112</Action>
+    </Rule>
+    <Rule enabled="true">
+      <Name>Psiphon Block</Name>
+      <Applications>psiphon-tunnel-core.exe; </Applications>
+      <Action type="Block" />
     </Rule>
     <Rule enabled="true">
       <Name>Default</Name>
@@ -118,20 +125,13 @@
     </Rule>
     <Rule enabled="true">
       <Name>Direct</Name>
-      <Applications>ping.exe; app.exe; app2.exe; app3.exe; python.exe; </Applications>
+      <Applications>ping.exe; app.exe; app2.exe; app3.exe; python.exe; py.exe; </Applications>
       <Action type="Direct" />
     </Rule>
     <Rule enabled="true">
-      <Name>Psiphon</Name>
-      <Applications>psiphon-tunnel-core.exe; </Applications>
-      <Targets>*.akamai.net; </Targets>
-      <Ports>80</Ports>
-      <Action type="Proxy">112</Action>
-    </Rule>
-    <Rule enabled="true">
-      <Name>Block</Name>
-      <Applications>psiphon-tunnel-core.exe; </Applications>
-      <Action type="Block" />
+      <Name>Direct</Name>
+      <Targets>localhost; 127.0.0.1; %ComputerName%; ::1; wpad; 192.168.*.*; *.xl.co.id; </Targets>
+      <Action type="Direct" />
     </Rule>
     <Rule enabled="true">
       <Name>Download</Name>
@@ -140,7 +140,12 @@
     </Rule>
     <Rule enabled="true">
       <Name>Download</Name>
-      <Targets>*.userstorage.mega.co.nz; *.googlevideo.com; </Targets>
+      <Targets>*.userstorage.mega.co.nz; </Targets>
+      <Action type="Chain">107</Action>
+    </Rule>
+    <Rule enabled="true">
+      <Name>Streaming</Name>
+      <Targets>*.googlevideo.com; video-*.xx.fbcdn.net; </Targets>
       <Action type="Chain">107</Action>
     </Rule>
     <Rule enabled="true">

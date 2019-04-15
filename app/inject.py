@@ -21,7 +21,7 @@ class inject(threading.Thread):
             frontend_domains = open(real_path('/../config/frontend-domains.txt')).readlines()
             frontend_domains = filter_array(frontend_domains)
             if len(frontend_domains) == 0:
-                self.log('Frontend Domain not found. Please check config/frontend-domains.txt', color='[R1]')
+                self.log('Frontend Domains not found. Please check config/frontend-domains.txt', color='[R1]')
                 self.log('Proxification Rules Psiphon change to Direct', color='[R1]')
                 return
             self.log('Domain Fronting running on {} port {}'.format(self.inject_host, self.inject_port))
