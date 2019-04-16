@@ -75,6 +75,11 @@ class client(threading.Thread):
                         if 'SOCKS proxy accept error' in message:
                             if not self.connected: break
 
+                        elif 'meek round trip failed' in message:
+                            if self.connected:
+                                self.log('Round trip failed', color='[R1]')
+                                break
+
                         elif 'A connection attempt failed because the connected party did not properly respond after a period of time' in message or \
                          'No connection could be made because the target machine actively refused it.' in message or \
                          'context canceled' in message or \
@@ -84,13 +89,13 @@ class client(threading.Thread):
                          'unexpected status code:' in message or \
                          'meek connection is closed' in message or \
                          'meek connection has closed' in message or \
+                         'psiphon.(*MeekConn).relay#787:' in message or \
                          'no such host' in message:
                             continue
 
                         elif 'psiphon.(*Tunnel).sendSshKeepAlive#1295:' in message or \
                          'psiphon.(*Tunnel).SendAPIRequest#342:' in message or \
                          'psiphon.(*Tunnel).Activate#225:' in message or \
-                         'meek round trip failed' in message or \
                          'meek read payload failed' in message or \
                          'underlying conn is closed' in message or \
                          'tunnel failed:' in message:
