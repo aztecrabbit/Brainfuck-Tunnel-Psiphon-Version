@@ -1,2 +1,2 @@
-Brainfuck Tunnel [Psiphon Version 1.3.190411]
+Brainfuck Tunnel [Psiphon Version 1.3.190420]
 (c) 2019 Aztec Rabbit.
