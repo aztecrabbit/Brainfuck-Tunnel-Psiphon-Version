@@ -25,6 +25,7 @@ def main():
         for core in range(config_core):
             port = 3080 + core
             app.client(command, port, config_kuota_data_limit).start()
+            time.sleep(0.200)
         with open(os.devnull, 'w') as devnull:
             process = Popen('ping.exe 141.0.11.241 -t', stdout=devnull, stderr=devnull)
             process.communicate()
