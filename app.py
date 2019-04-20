@@ -21,8 +21,10 @@ def main():
     time.sleep(1.500)
 
     try:
-        command = 'storage\\psiphon\\tunnel-core-{core}\\psiphon-tunnel-core.exe -config storage/psiphon/tunnel-core-{core}/config/psiphon-tunnel-core.json'
-        for core in range(config_core): app.client(command, core, config_kuota_data_limit).start()
+        command = 'storage\\psiphon\\{port}\\psiphon-tunnel-core.exe -config storage/psiphon/{port}/config/psiphon-tunnel-core.json'
+        for core in range(config_core):
+            port = 3080 + core
+            app.client(command, port, config_kuota_data_limit).start()
         with open(os.devnull, 'w') as devnull:
             process = Popen('ping.exe 141.0.11.241 -t', stdout=devnull, stderr=devnull)
             process.communicate()

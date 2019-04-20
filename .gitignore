@@ -2,8 +2,8 @@
 *.stackdump
 
 config/*
-storage/psiphon/tunnel-core-*/database/*
-storage/psiphon/tunnel-core-*/psiphon-tunnel-core.exe
+storage/psiphon/*/database/*
+storage/psiphon/*/psiphon-tunnel-core.exe
 
 !.gitkeep 
 

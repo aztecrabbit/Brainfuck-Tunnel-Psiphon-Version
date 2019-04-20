@@ -47,34 +47,64 @@
       <Port>3085</Port>
       <Options>48</Options>
     </Proxy>
-    <Proxy id="108" type="SOCKS5">
+    <Proxy id="106" type="SOCKS5">
       <Address>127.0.0.1</Address>
       <Port>3086</Port>
       <Options>48</Options>
     </Proxy>
-    <Proxy id="109" type="SOCKS5">
+    <Proxy id="107" type="SOCKS5">
       <Address>127.0.0.1</Address>
       <Port>3087</Port>
       <Options>48</Options>
     </Proxy>
-    <Proxy id="110" type="SOCKS5">
+    <Proxy id="108" type="SOCKS5">
       <Address>127.0.0.1</Address>
       <Port>3088</Port>
       <Options>48</Options>
     </Proxy>
-    <Proxy id="111" type="SOCKS5">
+    <Proxy id="109" type="SOCKS5">
       <Address>127.0.0.1</Address>
       <Port>3089</Port>
       <Options>48</Options>
     </Proxy>
-    <Proxy id="112" type="HTTPS">
+    <Proxy id="110" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3090</Port>
+      <Options>48</Options>
+    </Proxy>
+    <Proxy id="111" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3091</Port>
+      <Options>48</Options>
+    </Proxy>
+    <Proxy id="112" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3092</Port>
+      <Options>48</Options>
+    </Proxy>
+    <Proxy id="113" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3093</Port>
+      <Options>48</Options>
+    </Proxy>
+    <Proxy id="114" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3094</Port>
+      <Options>48</Options>
+    </Proxy>
+    <Proxy id="115" type="SOCKS5">
+      <Address>127.0.0.1</Address>
+      <Port>3095</Port>
+      <Options>48</Options>
+    </Proxy>
+    <Proxy id="160" type="HTTPS">
       <Address>127.0.0.1</Address>
       <Port>8080</Port>
       <Options>48</Options>
     </Proxy>
   </ProxyList>
   <ChainList>
-    <Chain id="106" type="redundancy">
+    <Chain id="200" type="redundancy">
       <Name>Redundancy</Name>
       <Proxy enabled="true">100</Proxy>
       <Proxy enabled="true">101</Proxy>
@@ -82,16 +112,22 @@
       <Proxy enabled="true">103</Proxy>
       <Proxy enabled="true">104</Proxy>
       <Proxy enabled="true">105</Proxy>
+      <Proxy enabled="true">106</Proxy>
+      <Proxy enabled="true">107</Proxy>
       <Proxy enabled="true">108</Proxy>
       <Proxy enabled="true">109</Proxy>
       <Proxy enabled="true">110</Proxy>
       <Proxy enabled="true">111</Proxy>
+      <Proxy enabled="true">112</Proxy>
+      <Proxy enabled="true">113</Proxy>
+      <Proxy enabled="true">114</Proxy>
+      <Proxy enabled="true">115</Proxy>
       <RedundancyTimeout>1</RedundancyTimeout>
       <RedundancyTryDirect>false</RedundancyTryDirect>
       <RedundancyRecheck>true</RedundancyRecheck>
-      <RedundancyRecheckTime>180</RedundancyRecheckTime>
+      <RedundancyRecheckTime>360</RedundancyRecheckTime>
     </Chain>
-    <Chain id="107" type="load_balancing">
+    <Chain id="201" type="load_balancing">
       <Name>Load Balancing</Name>
       <Proxy enabled="true">100</Proxy>
       <Proxy enabled="true">101</Proxy>
@@ -99,10 +135,16 @@
       <Proxy enabled="true">103</Proxy>
       <Proxy enabled="true">104</Proxy>
       <Proxy enabled="true">105</Proxy>
+      <Proxy enabled="true">106</Proxy>
+      <Proxy enabled="true">107</Proxy>
       <Proxy enabled="true">108</Proxy>
       <Proxy enabled="true">109</Proxy>
-      <Proxy enabled="true">110</Proxy>
-      <Proxy enabled="true">111</Proxy>
+      <Proxy enabled="false">110</Proxy>
+      <Proxy enabled="false">111</Proxy>
+      <Proxy enabled="false">112</Proxy>
+      <Proxy enabled="false">113</Proxy>
+      <Proxy enabled="false">114</Proxy>
+      <Proxy enabled="false">115</Proxy>
     </Chain>
   </ChainList>
   <RuleList>
@@ -111,7 +153,7 @@
       <Applications>psiphon-tunnel-core.exe; </Applications>
       <Targets>*.akamai.net; </Targets>
       <Ports>80</Ports>
-      <Action type="Proxy">112</Action>
+      <Action type="Proxy">160</Action>
     </Rule>
     <Rule enabled="true">
       <Name>Psiphon Block</Name>
@@ -121,7 +163,7 @@
     <Rule enabled="true">
       <Name>Default</Name>
       <Targets>*.virustotal.com; *.subscene.com; </Targets>
-      <Action type="Chain">106</Action>
+      <Action type="Chain">200</Action>
     </Rule>
     <Rule enabled="true">
       <Name>Direct</Name>
@@ -136,21 +178,21 @@
     <Rule enabled="true">
       <Name>Download</Name>
       <Applications>IDMan.exe; </Applications>
-      <Action type="Chain">107</Action>
+      <Action type="Chain">201</Action>
     </Rule>
     <Rule enabled="true">
       <Name>Download</Name>
       <Targets>*.userstorage.mega.co.nz; </Targets>
-      <Action type="Chain">107</Action>
+      <Action type="Chain">201</Action>
     </Rule>
     <Rule enabled="true">
       <Name>Streaming</Name>
       <Targets>*.googlevideo.com; video-*.xx.fbcdn.net; </Targets>
-      <Action type="Chain">107</Action>
+      <Action type="Chain">201</Action>
     </Rule>
     <Rule enabled="true">
       <Name>Default</Name>
-      <Action type="Chain">106</Action>
+      <Action type="Chain">200</Action>
     </Rule>
   </RuleList>
 </ProxifierProfile>

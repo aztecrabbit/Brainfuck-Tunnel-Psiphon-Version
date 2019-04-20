@@ -48,6 +48,5 @@ class domain_fronting(threading.Thread):
             self.handler(self.socket_tunnel, self.socket_client, self.buffer_size)
             self.socket_client.close()
             self.socket_tunnel.close()
-        except Exception as exception:
-            self.log('Exception: {}'.format(exception), color='[R1]')
-            return
+        except TimeoutError:
+            self.log('{} not responding'.format(self.proxy_host), color='[R1]')

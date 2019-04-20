@@ -1,0 +1,15 @@
+{
+  "DataStoreDirectory": "storage/psiphon/3087/database",
+  "DataStoreTempDirectory": "storage/psiphon/3087/temp",
+  "PropagationChannelId": "92AACC5BABE0944C",
+  "SponsorId": "1BC527D3D09985CF",
+
+  "UseIndistinguishableTLS": true,
+  "EmitDiagnosticNotices": true,
+  "EmitBytesTransferred": true,
+
+  "DisableLocalHTTPProxy": true,
+  "LocalSocksProxyPort": 3087,
+  
+  "EgressRegion": ""
+}

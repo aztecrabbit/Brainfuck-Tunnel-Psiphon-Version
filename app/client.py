@@ -5,12 +5,12 @@ import subprocess
 from .app import *
 
 class client(threading.Thread):
-    def __init__(self, command, core, kuota_data_limit):
+    def __init__(self, command, port, kuota_data_limit):
         super(client, self).__init__()
 
         self.kuota_data_limit = kuota_data_limit
-        self.command = command.format(core=core)
-        self.core = core
+        self.command = command.format(port=port)
+        self.port = port
 
         self.kuota_data = 0
         self.force_stop = False
@@ -18,10 +18,10 @@ class client(threading.Thread):
         self.daemon = True
 
     def log(self, value, color='[G1]'):
-        log(value, status='308{}'.format(self.core), color=color)
+        log(value, status=self.port, color=color)
 
     def log_replace(self, value, color='[G1]'):
-        log_replace(value, status='308{}'.format(self.core), color=color)
+        log_replace(value, status=self.port, color=color)
 
     def size(self, bytes, suffixes=['B', 'KB', 'MB', 'GB'], i=0):
         while bytes >= 1000 and i < len(suffixes) - 1:
